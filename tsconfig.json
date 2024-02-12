@@ -6,7 +6,6 @@
     "lib": ["Es6"],
     "strict": true,
     "esModuleInterop": true,
-    "module": "CommonJS"
-
+    // "module": "CommonJS"
   }
 }
