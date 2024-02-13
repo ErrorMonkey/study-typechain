@@ -25,7 +25,7 @@ class Dev implements DevProp {
 
 const devSeyun = new Dev("세윤", ["C#", "JAVA"], ["mac", "window"], "company");
 
-console.log("bye");
+// console.log("bye");
 
 import * as crypto from "crypto";
 
@@ -52,3 +52,31 @@ class Block implements BlockShape {
     return crypto.createHash("sha256").update(toHash).digest("hex");
   }
 }
+class Blockchain {
+  private blocks: Block[];
+  constructor() {
+    this.blocks = [];
+  }
+  private getPrevHash() {
+    if (this.blocks.length === 0) return "";
+    return this.blocks[this.blocks.length - 1].hash;
+  }
+  public addBlock(data: string) {
+    const newBlock = new Block(this.getPrevHash(), this.blocks.length + 1, data);
+    this.blocks.push(newBlock);
+  }
+  public getBlock() {
+    // return this.blocks;
+    // 참조 데이터라 그대로 보내면 데이터를 받아서 변경할 수도 있음
+    // 방지하기 위해 스프레드 연산자로 새 배열을 반환한다
+    return [...this.blocks];
+  }
+}
+
+const blockchain = new Blockchain();
+
+blockchain.addBlock("First one");
+blockchain.addBlock("Second one");
+blockchain.addBlock("Third one");
+
+console.log("blockchain.getBlock()", blockchain.getBlock());
